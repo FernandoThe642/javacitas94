@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -28,7 +29,7 @@ public class CitaMedica {
 	private String cedulaPaciente;
 	
 	@Column(name = "cm_nombrePaciente")
-	private String nombrePacientel;
+	private String nombrePaciente;
 	
 	@Column(name = "cm_correoPaciente")
 	private String correoPaciente;
@@ -46,9 +47,9 @@ public class CitaMedica {
 	private String estado; //Pendiente|| Confirmada|| Cancelada
 	
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "cm_id")
-    private List<Doctor> doctores;
+    private Doctor doctor;
 
 
 	public int getId() {
@@ -71,13 +72,13 @@ public class CitaMedica {
 	}
 
 
-	public String getNombrePacientel() {
-		return nombrePacientel;
+	public String getNombrePaciente() {
+		return nombrePaciente;
 	}
 
 
-	public void setNombrePacientel(String nombrePacientel) {
-		this.nombrePacientel = nombrePacientel;
+	public void setNombrePaciente(String nombrePaciente) {
+		this.nombrePaciente = nombrePaciente;
 	}
 
 
@@ -131,22 +132,17 @@ public class CitaMedica {
 	}
 
 
-	public List<Doctor> getDoctores() {
-		return doctores;
+	public Doctor getDoctor() {
+		return doctor;
 	}
 
 
-	public void setDoctores(List<Doctor> doctores) {
-		this.doctores = doctores;
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
 	}
-	
-	
-	public void addTelefono(Doctor doctor) {
-		if (this.doctores == null) {
-			this.doctores = new ArrayList<>();
-		}
-		this.doctores.add(doctor);
-	}
+
+
+
 	
 	
 

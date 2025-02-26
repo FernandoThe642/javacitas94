@@ -10,7 +10,7 @@ import jakarta.transaction.Transactional;
 import ppw.javacitas94.model.CitaMedica;
 
 @Stateless
-public class CitasMedicasDAO {
+public class CitaMedicaDAO {
 	
 	@PersistenceContext 
 	private EntityManager emCitaMedica;
@@ -46,14 +46,29 @@ public class CitasMedicasDAO {
 	
 	
 	
-    public CitaMedica buscarCitaMedicaPorNombre(String nombre) {
+    public CitaMedica buscarCitaMedicaPorCedulaPaciente(String cedulaPaciente) {
         try {
-            return emCitaMedica.createQuery("SELECT d FROM CitaMedica d WHERE o.nombreCitaMedica = :nombreCitaMedica", CitaMedica.class)
-                    .setParameter("nombre", nombre)
+            return emCitaMedica.createQuery("SELECT c FROM CitaMedica c WHERE c.cedulaPaciente = :cedulaPaciente", CitaMedica.class)
+                    .setParameter("cedulaPaciente", cedulaPaciente)
                     .getSingleResult();
         } catch (Exception e) {
             return null;
         }
     }
+    
+    public List<CitaMedica> buscarCitasPorCedulaDoctor(String cedulaDoctor) {
+        try {
+            String jpql = "SELECT c FROM CitaMedica c WHERE c.doctor.cedulaDoctor = :cedulaDoctor";
+            return emCitaMedica.createQuery(jpql, CitaMedica.class)
+                    .setParameter("cedulaDoctor", cedulaDoctor)
+                    .getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    
+    
+    
 
 }

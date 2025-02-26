@@ -47,10 +47,10 @@ public class DoctorDAO {
 	
 	
 	
-    public Doctor buscarDoctorPorNombre(String nombre) {
+    public Doctor buscarDoctorPorEspecialidad(String especialidad) {
         try {
-            return emDoctor.createQuery("SELECT d FROM Doctor d WHERE o.nombreDoctor = :nombreDoctor", Doctor.class)
-                    .setParameter("nombre", nombre)
+            return emDoctor.createQuery("SELECT d FROM Doctor d WHERE d.especialidad = :especialidad", Doctor.class)
+                    .setParameter("especialidad", especialidad)
                     .getSingleResult();
         } catch (Exception e) {
             return null;
